@@ -332,12 +332,10 @@ footer p a:hover {
 }
 
 
-.storyboard img,
-.slideshow img {
+.storyboard img {
     width: 100%;
-    max-height: 100%;
-    border-radius: 0.6vw;
-}
+    height: auto;
+    object-fit: cover;}
 
 /* Slideshow container */
 .slideshow-container {
