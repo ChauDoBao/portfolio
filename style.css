@@ -4,14 +4,50 @@
     box-sizing: border-box;
     
   }
-  
+  html,
+body,
+*,
+*::before,
+*::after {
+  cursor: none !important;
+}
+
+/* Global cursor */
+html, body, * {
+  cursor: url("desktop/cursor1.png") 0 0, auto !important;
+}
+
+/* Clickables */
+a, button, .hamburger {
+  cursor: url("desktop/cursor2.png") 0 0, pointer !important;
+}
+
+/* Media elements */
+video, iframe, svg, svg * {
+  cursor: url("desktop/cursor1.png") 0 0, auto !important;
+}
+
+/* Decorative layers */
+.video-background,
+.image-container,
+.cover-image {
+  pointer-events: none;
+}
+
+
   html {
     font-size: 17px;
     /* Changes 1rem to equal 17px */
     background-color: #000;
     height: 100%;
+    cursor: none;
 
-}
+  }
+  
+
+
+
+
 /* General styles */
 body {
     font-family: Arial, sans-serif;
@@ -21,6 +57,8 @@ body {
     height: 100%;
     color: #333;
     overflow-x: hidden;
+      cursor: none;
+
     justify-content: center;  /* Center horizontally */
   align-items: center;
   animation: fadeIn 0.2s ease-in-out forwards;}
@@ -233,10 +271,12 @@ nav {
 
 /* Footer */
 footer {
+  display: flex;             /* Turns on Flexbox */
+  flex-direction: column;    /* Stacks Logo -> Icons -> Email vertically */
+  align-items: center;       /* Centers items horizontally */
+  justify-content: center;   /* Centers items vertically if there's extra space */
   text-align: center;
   padding-top: 5.5vw;
-  padding-bottom: 0;
-  color: #fff;
   margin-top: auto;
   background-image: url(desktop/footer.png);
   background-size: contain; /* Makes the image fill the container */
@@ -244,55 +284,97 @@ footer {
   background-repeat: no-repeat;
   bottom: 0;
   width: 100%;
-  height: 25vw;
+  min-height: 25vw;
   left: 0;
   margin-top: auto;
   /* Push footer to the bottom */
 }
-
-/* Footer logo styles */
-.logofooter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 9vw;
-}
-
 .logofooter img {
-  max-height: 9vw;
-  /* Adjust image size */
-  width: auto;
+    height: 8vw; /* Slightly responsive height */
+    width: auto;
+    margin-bottom: 1rem;
 }
 
-/* Email Link Styling */
-footer a {
-  color: #9ab1f0;
-  text-decoration: none;
-  transition: color 0.3s ease; /* Smooth color transition */
-  margin: 0 0; /* Space between social links */
-}
-footer p {
-  margin: 0.2vw;
-  text-align: center;
+/* Icons Container */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem; /* Gap between icons */
+    margin-bottom: 1rem;
 }
 
-footer a:hover {
-  color: #7ba0e9; /* Hover effect color (e.g., a golden shade) */
-  text-shadow: 0 0 0.5vw #0b0b0b, 0 0 2vw #cadbff;
+/* SVG Icon Styling */
+.social-icons a svg {
+    width: 1.5rem; /* Small but clickable size */
+    height: 1.5rem;
+    fill: #e7e7e7; /* Monochrome grey initially */
+    transition: all 0.3s ease;
 }
 
-/* Social Media Links */
+/* Hover Effect for Icons */
+.social-icons a:hover svg {
+    fill: #7ba0e9; /* Your blue accent color */
+    transform: translateY(-3px); /* Little pop up animation */
+    filter: drop-shadow(0 0 5px #7ba0e9);
+}
+
 footer p a {
-  margin: 0 0.1vw; /* Space between social links */
+    color: #9ab1f0;
+    font-size: 0.9rem;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+
+}
+/* ===============================
+   Copy Email Tooltip (FINAL)
+   =============================== */
+
+.copy-email {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
 }
 
-/* Social Media Links Hover Effect */
-footer p a:hover {
-  color: #7ba0e9; /* Hover effect color (e.g., a golden shade) */
+.copy-email .tooltip {
+  position: absolute;
+  bottom: 140%;
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+
+  background: #000;
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.4rem;
+  white-space: nowrap;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 999;
 }
 
+/* Visible state (controlled by JS) */
+.copy-email.show-tooltip .tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
 
- 
+/* Arrow */
+.copy-email .tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0.4rem;
+  border-style: solid;
+  border-color: #000 transparent transparent transparent;
+}
+
   /*HOME*/
   .key-visual {
     position: relative;
@@ -305,7 +387,7 @@ footer p a:hover {
   }
 
   .key-visual .image-stack {
-    position: relative;
+    position: absolute;
     width: 100%;
     height: 100%;
     -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0.8) 94%, rgba(0, 0, 0, 0) 99%);
@@ -379,7 +461,27 @@ footer p a:hover {
     grid-template-rows: 1fr; /* Make sure grid items have a consistent row height */
   }
   
+/* --- RESPONSIVE YOUTUBE FIX --- */
+.showreel-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px; /* Limits width on big screens */
+    margin: 2vw auto; /* Centers it */
+    
+    /* This creates a perfect 16:9 aspect ratio container */
+    aspect-ratio: 16 / 9; 
+    
+    background: #000;
+    border: 1px solid #333; /* Optional border */
+}
 
+.showreel-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
   
   /* Image container for the background */
   .tv1-container, .tv2-container, .tv3-container {
@@ -848,94 +950,125 @@ h2 {
 }
 
 /* For screens between 480px and 768px */
+/* =========================================
+   MOBILE & TABLET ADJUSTMENTS (Max Width 768px)
+   ========================================= */
 @media (max-width: 768px) {
-  .typo {
-    transform: scale(0.4); /* Smaller on medium screens */
-  }
-  @keyframes moveScaleTypo {
-    0%, 100% {
-      transform: translateY(2vw) scale(0.4);
-    }
-    50% {
-      transform: translateY(-2vw) scale(0.45); /* Even more subtle scale */
-    }
+
+  /* --- 1. HEADER FIX --- */
+  header {
+    height: 80px;          /* Fixed height instead of vw for stability */
+    top: 0;                /* Reset top position */
+    padding: 0 20px;       /* Standard padding */
+    background-size: cover; /* Ensure background image covers the bar */
   }
 
-  h1 {
-    font-size: 2.1rem;
-}
-
-h2 {
-    font-size: 1.2rem;
-}
-
-
-p, a {
-    font-size: 0.9rem;
-}
-.nav-links {
-  flex-direction: row;   
-  position: absolute;  
-  top: 2vw;                 
-  right: 0;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  align-items: center;
-  justify-items: center;
-  border-radius: 0;
-  width: 100vw;              
-  background-color: #000;   
-  box-shadow: 0 0 1vw 0.6vw #637eca99; /* Subtle shadow */
-  z-index: 1;               
-  transform: translateY(-20%); /* Initial off-screen position */
-  transition: transform 0.5s ease, opacity 0.3s ease; /* Define transition here */
-}
-
-nav a {
-  margin: 2vw;
-}
-
-    /* Show the hamburger icon only on small screens */
-    .hamburger {
-      display: block;
-      z-index: 2;
+  /* Make logo a reasonable size on phone */
+  header .logo {
+    width: 60px; 
   }
   
+  header .logo img {
+    max-height: 100%;
+    width: 100%;
+  }
+
+  /* Hamburger Icon Styling */
+  .hamburger {
+    display: block;
+    z-index: 2000;         /* Highest z-index to stay on top of the menu */
+    font-size: 2rem;       /* Make it big enough to tap */
+  }
+
+  /* --- 2. FULL SCREEN MENU ANIMATION --- */
+  .nav-links {
+    position: fixed;       /* Locks it to the screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;         /* Full viewport height */
+    background-color: #000000;
+    
+    /* Layout for links inside the menu */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;             /* Space between links */
+    
+    /* Animation Properties */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-100%); /* Start completely off-screen (above) */
+    transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); /* Smooth Sci-Fi easing */
+    z-index: 1500;         /* Below hamburger, above everything else */
+  }
+
+  /* The Active State (When menu is open) */
   .nav-links.active {
-      transform: translateY(0);   /* Slide it in */
-      opacity: 1;                 /* Fade it in */
-      visibility: visible;        /* Make it visible */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0); /* Slide down to fill screen */
   }
-}
 
-/* For screens smaller than 480px */
-@media (max-width: 480px) {
+  .nav-links a {
+    font-size: 2rem;       /* Large text for mobile tapping */
+    margin: 0;             /* Reset margins */
+  }
+
+  /* --- 3. FOOTER FIX --- */
+  footer {
+    min-height: auto;      /* Remove vw height limitation */
+    padding: 40px 20px;    /* Give it breathing room */
+    background-size: cover;
+    background-position: center bottom;
+  }
+
+  .logofooter img {
+    height: 60px;          /* Fixed height for footer logo */
+    width: auto;
+    margin-bottom: 20px;
+  }
+
+  .social-icons {
+    gap: 20px;             /* Space between icons */
+    margin-bottom: 20px;
+  }
+
+  .social-icons a svg {
+    width: 1.2rem;         /* Smaller icons as requested */
+    height: 1.2rem;
+  }
+
+  /* --- ADJUSTMENTS FOR OTHER ELEMENTS --- */
+  
+  /* Adjust Typography scale for mobile */
   .typo {
-    transform: scale(0.28); /* Even smaller on very small screens */
+    transform: scale(0.4); 
   }
+  
   @keyframes moveScaleTypo {
-    0%, 100% {
-      transform: translateY(1vw) scale(0.28);
-    }
-    50% {
-      transform: translateY(-1vw) scale(0.32); /* Even more subtle scale */
-    }
+    0%, 100% { transform: translateY(2vw) scale(0.4); }
+    50% { transform: translateY(-2vw) scale(0.45); }
   }
 
-    h1 {
-      font-size: 2rem;
+  h1 { font-size: 2.1rem; }
+  h2 { font-size: 1.2rem; }
+  p, a { font-size: 0.9rem; }
+  
+  /* Fix the Scroll Down Circle size on mobile */
+  .scroll-down {
+    height: 40vw; 
+    margin-top: -5vw;
+    margin-bottom: 15vw;
   }
 
-  h2 {
-      font-size: 1rem;
+  /* Fix TV/Works height on mobile so they aren't too squashed */
+  .tv1, .tv2, .tv3 {
+    height: 50vw; 
   }
-
-  p, a {
-      font-size: 0.7rem;
+  
+  .channel1, .channel2, .channel3 {
+    font-size: 1rem; /* Adjust text inside TV */
   }
-
 }
-
-
-
