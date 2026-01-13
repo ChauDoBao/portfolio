@@ -165,7 +165,7 @@ main, .game {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 18vw;
+  height: 10vw;
   overflow: visible;
   transform-origin: center center; 
   margin-top: -10vw; 
@@ -533,13 +533,12 @@ footer p a {
     top: 50%; /* Vertically center the text */
     left: 50%; /* Horizontally center the text */
     transform: translate(-50%, -50%); /* Adjust to exactly center the text */
-    font-size: 2rem; /* Adjust text size as needed */
+    font-size: 1.5rem; /* Adjust text size as needed */
     text-align: center;
     z-index: 2; /* Ensure the text appears on top of the background */
     color: #12224e;
     font-family: new-science-extended, serif;
     font-weight: bold;
-    font-size: 1.8vw;
   }
   
   .channel1:hover, .channel2:hover, .channel3:hover {
