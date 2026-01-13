@@ -11,7 +11,9 @@ body,
 *::after {
   cursor: none !important;
 }
-
+main > section {
+  margin-bottom: 15vw;
+}
 /* Global cursor */
 html, body, * {
   cursor: url("desktop/cursor1.png") 0 0, auto !important;
@@ -270,112 +272,164 @@ nav {
   cursor: pointer;
   color: white;
 }
-
-/* Footer */
-footer {
-  display: flex;             /* Turns on Flexbox */
-  flex-direction: column;    /* Stacks Logo -> Icons -> Email vertically */
-  align-items: center;       /* Centers items horizontally */
-  justify-content: center;   /* Centers items vertically if there's extra space */
-  text-align: center;
-  padding-top: 5.5vw;
-  margin-top: auto;
-  background-image: url(desktop/footer.png);
-  background-size: contain; /* Makes the image fill the container */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat;
-  bottom: 0;
+.visual-rhythm {
+  padding: 0 4vw;
+  margin-bottom: 15vw; /* Increased from 5vw to 15vw for a huge gap */
   width: 100%;
-  min-height: 25vw;
-  left: 0;
-  margin-top: auto;
-  /* Push footer to the bottom */
 }
+.rhythm-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10vw; /* Increased gap between the Zig-Zag rows */
+  max-width: 1400px; /* Allowed wider width so videos can grow */
+  margin: 0 auto;
+}
+
+.rhythm-row {
+  display: flex;
+  align-items: center; 
+  justify-content: space-between;
+  gap: 6vw; /* More breathing room between video and text */
+  width: 100%;
+}
+
+/* 2. TALLER VIDEOS: Video column now takes 60% width, Text takes 40% */
+.rhythm-media {
+  flex: 1.5; /* This makes the video column wider (and thus taller) */
+  width: 100%;
+  position: relative;
+}
+
+.rhythm-media video {
+  width: 100%;
+  height: auto; 
+  /* If you want to force a specific height and CROP the sides, uncomment below: */
+  /* height: 500px; */ 
+  /* object-fit: cover; */
+  
+  display: block;
+  border: 1px solid #333; 
+  box-shadow: 0 0 15px rgba(118, 149, 237, 0.1); 
+  border-radius: 4px;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.rhythm-media:hover video {
+  filter: brightness(1.1);
+  transform: scale(1.01);
+  box-shadow: 0 0 20px rgba(118, 149, 237, 0.3);
+}
+
+/* 3. SMALLER TEXT HEADINGS */
+.rhythm-text {
+  flex: 1; /* Text stays smaller */
+  padding: 0 1vw;
+}
+
+.rhythm-text h3 {
+  font-family: new-science-extended, sans-serif;
+  color: #e8e8e8;
+  font-size: 1.1rem; /* Reduced from 1.5rem */
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.rhythm-text p {
+  text-align: justify;
+  color: #c0c0c0;
+  margin-bottom: 0;
+  font-size: 0.95rem; /* Slightly adjusted for balance */
+}
+/* FOOTER */
+footer {
+    display: flex;            
+    flex-direction: column;    
+    align-items: center;       
+    justify-content: center;   
+    text-align: center;
+    padding-top: 5.5vw;
+    margin-top: auto;
+    background-image: url(desktop/footer.png);
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    bottom: 0;
+    width: 100%;
+    min-height: 25vw;
+    left: 0;
+    z-index: 10;
+}
+
 .logofooter img {
-    height: 8vw; /* Slightly responsive height */
+    height: 8vw; 
     width: auto;
     margin-bottom: 1rem;
 }
 
-/* Icons Container */
 .social-icons {
     display: flex;
     justify-content: center;
-    gap: 1.5rem; /* Gap between icons */
+    gap: 1.5rem; 
     margin-bottom: 1rem;
 }
 
-/* SVG Icon Styling */
 .social-icons a svg {
-    width: 1.5rem; /* Small but clickable size */
+    width: 1.5rem; 
     height: 1.5rem;
-    fill: #e7e7e7; /* Monochrome grey initially */
+    fill: #e7e7e7; 
     transition: all 0.3s ease;
 }
 
-/* Hover Effect for Icons */
 .social-icons a:hover svg {
-    fill: #7ba0e9; /* Your blue accent color */
-    transform: translateY(-3px); /* Little pop up animation */
+    fill: #7ba0e9; 
+    transform: translateY(-3px); 
     filter: drop-shadow(0 0 5px #7ba0e9);
 }
 
-footer p a {
-    color: #9ab1f0;
-    font-size: 0.9rem;
-    text-decoration: none;
-    letter-spacing: 0.05em;
-
-}
-/* ===============================
-   Copy Email Tooltip (FINAL)
-   =============================== */
-
+/* Copy Email Tooltip */
 .copy-email {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
 }
 
 .copy-email .tooltip {
-  position: absolute;
-  bottom: 140%;
-  left: 50%;
-  transform: translateX(-50%) translateY(6px);
-
-  background: #000;
-  color: #fff;
-  font-size: 0.7rem;
-  padding: 0.4rem 0.6rem;
-  border-radius: 0.4rem;
-  white-space: nowrap;
-
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  z-index: 999;
+    position: absolute;
+    bottom: 140%;
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    background: #000;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.4rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 999;
 }
 
-/* Visible state (controlled by JS) */
 .copy-email.show-tooltip .tooltip {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
 }
 
-/* Arrow */
 .copy-email .tooltip::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 0.4rem;
-  border-style: solid;
-  border-color: #000 transparent transparent transparent;
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0.4rem;
+    border-style: solid;
+    border-color: #000 transparent transparent transparent;
 }
+
 
   /*HOME*/
   .key-visual {
@@ -963,6 +1017,23 @@ h2 {
       transform: translateY(-2vw) scale(0.45); /* Even more subtle scale */
     }
   }
+.rhythm-row {
+    flex-direction: column;
+    gap: 4vw;
+    margin-bottom: 12vw; /* Big gaps on mobile too */
+  }
+
+  .rhythm-media, .rhythm-text {
+    flex: auto; /* Reset the 60/40 split on mobile */
+    width: 100%;
+  }
+
+  .rhythm-text h3 {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: 2vw;
+  }
+
 
 /* Inside @media (max-width: 768px) */
 header {
@@ -1041,20 +1112,7 @@ nav a {
       visibility: visible;        /* Make it visible */
   }
 }
-.social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 0.7rem; /* Gap between icons */
-    margin-bottom: 1.5rem;
-}
 
-/* SVG Icon Styling */
-.social-icons a svg {
-    width: 1.3rem; /* Small but clickable size */
-    height: 1.3rem;
-    fill: #e7e7e7; /* Monochrome grey initially */
-    transition: all 0.3s ease;
-}
 /* For screens smaller than 480px */
 @media (max-width: 480px) {
   .typo {

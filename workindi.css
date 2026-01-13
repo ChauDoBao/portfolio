@@ -4,6 +4,30 @@
     padding: 0;
     box-sizing: border-box;
 }
+html,
+body,
+*,
+*::before,
+*::after {
+  cursor: none !important;
+}
+main > section {
+  margin-bottom: 15vw;
+}
+/* Global cursor */
+html, body, * {
+  cursor: url("desktop/cursor1.png") 0 0, auto !important;
+}
+
+/* Clickables */
+a, button, .hamburger {
+  cursor: url("desktop/cursor2.png") 0 0, pointer !important;
+}
+
+/* Media elements */
+video, iframe, svg, svg * {
+  cursor: url("desktop/cursor1.png") 0 0, auto !important;
+}
 
 html {
     font-size: 17px;
@@ -346,6 +370,43 @@ nav a:hover{
     line-height: 1.6;
     margin-bottom: 20vw;
     padding: 0vw 10vw;
+}
+/* Add to workindi.css */
+
+.process-subtitle {
+    text-align: center;
+    color: #7ba0e9; /* Your accent blue color */
+    font-family: new-science, sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 1.5vw;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+}
+
+.process-list {
+    list-style-type: none; /* Remove default bullets */
+    padding: 0;
+    margin: 0 auto;
+    max-width: 800px; /* Keep the list from getting too wide */
+}
+
+.process-list li {
+    text-align: left; /* Keep the list items readable */
+    font-family: new-science, sans-serif;
+    color: #e8e8e8;
+    font-size: 1.1rem;
+    margin-bottom: 1vw;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+/* Custom bullet point style */
+.process-list li::before {
+    content: "•";
+    color: #7ba0e9; /* Blue accent bullet */
+    font-weight: bold;
+    position: absolute;
+    left: 0;
 }
 
 /* Storyboard & Slideshow */

@@ -11,7 +11,37 @@ html {
     background-color: #000;
 }
 
+html,
+body,
+*,
+*::before,
+*::after {
+  cursor: none !important;
+}
+main > section {
+  margin-bottom: 15vw;
+}
+/* Global cursor */
+html, body, * {
+  cursor: url("desktop/cursor1.png") 0 0, auto !important;
+}
 
+/* Clickables */
+a, button, .hamburger {
+  cursor: url("desktop/cursor2.png") 0 0, pointer !important;
+}
+
+/* Media elements */
+video, iframe, svg, svg * {
+  cursor: url("desktop/cursor1.png") 0 0, auto !important;
+}
+
+/* Decorative layers */
+.video-background,
+.image-container,
+.cover-image {
+  pointer-events: none;
+}
 
 /* General styles */
 body {
