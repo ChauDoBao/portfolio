@@ -79,3 +79,51 @@ slides.forEach((slide, index) => {
 // Set the first slide as active on page load
 updateActiveSlide();
 
+// Copy email
+  
+  const email = "dobaochau040905@gmail.com";
+  const copyBtn = document.querySelector(".copy-email");
+  const tooltip = copyBtn.querySelector(".tooltip");
+
+  let hideTimeout;
+
+  function showTooltip(text) {
+    tooltip.textContent = text;
+    copyBtn.classList.add("show-tooltip");
+
+    clearTimeout(hideTimeout);
+  }
+
+  function hideTooltip(delay = 0) {
+    hideTimeout = setTimeout(() => {
+      copyBtn.classList.remove("show-tooltip");
+    }, delay);
+  }
+
+  // Hover: show "Click to copy"
+  copyBtn.addEventListener("mouseenter", () => {
+    showTooltip("Click to copy");
+  });
+
+  copyBtn.addEventListener("mouseleave", () => {
+    hideTooltip(200);
+  });
+
+  // Click: copy + show confirmation
+  copyBtn.addEventListener("click", () => {
+    navigator.clipboard.writeText(email).then(() => {
+      showTooltip("Copied to clipboard");
+      hideTooltip(1500);
+    });
+  });
+
+  // Keyboard accessibility
+  copyBtn.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      navigator.clipboard.writeText(email).then(() => {
+        showTooltip("Copied to clipboard");
+        hideTooltip(1500);
+      });
+    }
+  });
